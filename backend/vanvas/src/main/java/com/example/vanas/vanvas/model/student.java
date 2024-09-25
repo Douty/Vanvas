@@ -30,7 +30,7 @@ public class Student {
 
     }
 
-    public Student(String studentId, String firstName, String lastName, String studentEmail, String studenetPassword, Boolean isAdmin) {
+    public Student(String studentId, String firstName, String lastName, String studentEmail, String studentPassword, Boolean isAdmin) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -75,7 +75,7 @@ public class Student {
         return studentPassword;
     }
 
-    public void setstudentPassword(String studenetPassword) {
+    public void setstudentPassword(String studentPassword) {
         this.studentPassword = studentPassword;
     }
 

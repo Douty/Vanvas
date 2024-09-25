@@ -8,12 +8,22 @@ import javax.validation.constraints.Size;
 
 @Document
 public class Student {
+    
     @Id
     private String studentId;
+    
+    @NotNull(message = "First name is required")
     private String firstName;
+    
+    @NotNull(message = "Last name is required")
     private String lastName;
+    
+    @Email(message = "Email should be valid")
     private String studentEmail;
-    private String studenetPassword;
+    
+    @NotNull(message = "Password is required")
+    @Size(min = 8, message = "Password should be at least 8 characters")
+    private String studentPassword;
     private Boolean isAdmin;
 
     public Student() {
@@ -25,7 +35,7 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.studentEmail = studentEmail;
-        this.studenetPassword = studenetPassword;
+        this.studentPassword = studentPassword;
         this.isAdmin = isAdmin;
     }
 
@@ -61,12 +71,12 @@ public class Student {
         this.studentEmail = studentEmail;
     }
 
-    public String getStudenetPassword() {
-        return studenetPassword;
+    public String getstudentPassword() {
+        return studentPassword;
     }
 
-    public void setStudenetPassword(String studenetPassword) {
-        this.studenetPassword = studenetPassword;
+    public void setstudentPassword(String studenetPassword) {
+        this.studentPassword = studentPassword;
     }
 
     public Boolean getAdmin() {
@@ -84,7 +94,7 @@ public class Student {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", studentEmail='" + studentEmail + '\'' +
-                ", studenetPassword='" + studenetPassword + '\'' +
+                ", studentPassword='" + studentPassword + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';
     }

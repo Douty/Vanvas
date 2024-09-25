@@ -71,11 +71,11 @@ public class Student {
         this.studentEmail = studentEmail;
     }
 
-    public String getstudentPassword() {
+    public String getStudentPassword() {
         return studentPassword;
     }
 
-    public void setstudentPassword(String studentPassword) {
+    public void setStudentPassword(String studentPassword) {
         this.studentPassword = studentPassword;
     }
 

@@ -7,13 +7,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserRegistrationService {
+public class StudentRegistrationService {
 
     private final StudentRepository studentRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserRegistrationService(StudentRepository studentRepository, BCryptPasswordEncoder passwordEncoder) {
+    public StudentRegistrationService(StudentRepository studentRepository, BCryptPasswordEncoder passwordEncoder) {
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -23,11 +23,9 @@ public class UserRegistrationService {
             throw new IllegalArgumentException("Email already in use");
         }
 
-        // Hash the password before saving
         String hashedPassword = passwordEncoder.encode(student.getStudentPassword());
         student.setStudentPassword(hashedPassword);
 
-        // Save the student in the repository
         return studentRepository.save(student);
     }
 }

@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.vanas.vanvas.model.Classroom;
 import com.example.vanas.vanvas.repository.ClassroomRepo;
-
+import com.example.vanas.vanvas.model.Assignment;
+import com.example.vanas.vanvas.model.classroomUtil.StudentGrade;
 @Service
 public class ClassroomService {
 
@@ -21,6 +22,26 @@ public class ClassroomService {
     }
     public List<String> findByStudentClassrooms(String studentId) {
         return classroomRepo.getStudentClassroomListID(studentId);
+    }
+
+    public double calulateStudentClassGrade(String studentId, String classroomId){
+
+        Classroom classroom = classroomRepo.findAssignmentsByClassroomId(classroomId);
+
+        double totalGrade = 0;
+        int assignmentCount = 0;
+
+        for (Assignment assignments : classroom.getAssignments()){
+            for (StudentGrade studentGrade: assignments.getStudentGrades()) {
+                if (studentGrade.getStudentId().equals(studentId)){
+                    totalGrade += studentGrade.getGrade();
+                    assignmentCount ++;
+                }
+            }
+        }
+
+        return assignmentCount > 0 ? totalGrade : null;
+
     }
 
 }

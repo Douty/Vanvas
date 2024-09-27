@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.example.vanas.vanvas.model.classroomUtil.StudentGrade;
+
 
 
 @Document(collection = "Classrooms")
@@ -16,6 +18,7 @@ public class Classroom {
     private Teacher teacher;
     private List<Assignment> assignments;
     private List<Student> students;
+    
 
     public Classroom (String id,String name,Teacher teacher, List<Assignment> assignments, List<Student> students){
         this.id = id;
@@ -56,6 +59,9 @@ public class Classroom {
     public List<Assignment> getAssignments() {
         return assignments;
     }
+    public List<StudentGrade> getAssignmentGrade(Assignment assignment){
+        return assignment.getStudentGrades();
+    }
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
@@ -64,7 +70,7 @@ public class Classroom {
         this.assignments.add(assignment);
     }
 
-    // Remove an assignment from the list
+  
     public void removeAssignment(Assignment assignment) {
         this.assignments.remove(assignment);
     }

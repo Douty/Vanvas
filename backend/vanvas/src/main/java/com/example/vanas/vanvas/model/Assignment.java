@@ -1,9 +1,11 @@
 package com.example.vanas.vanvas.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
-
+import com.example.vanas.vanvas.model.classroomUtil.*;
 
 
 public class Assignment {
@@ -13,6 +15,8 @@ public class Assignment {
     public Date time;
     public String description;
     public String type;
+    public List<StudentGrade> studentgrade;
+    
     public Assignment(String id,String name,Date time,String description,String type){
         this.id = id;
         this.name = name;
@@ -65,6 +69,15 @@ public class Assignment {
         this.type = type;
     }
 
+    public List<StudentGrade> getStudentGrades() {
+        return studentgrade;
+    }
+
+
+    public void setStudentGrades(ArrayList<StudentGrade> studentgrade) {
+        this.studentgrade = studentgrade;
+    }
+
     @Override
     public String toString() {
         return "Assignment{" +
@@ -73,6 +86,7 @@ public class Assignment {
                 ", time=" + time +
                 ", description='" + description + '\'' +
                 ", type='" + type + '\'' +
+                ", studentGrades=" + studentgrade +
                 '}';
     }
 

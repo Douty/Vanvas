@@ -1,50 +1,50 @@
 package com.example.vanas.vanvas.model;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Document
-public class Student {
-    
+public class Teacher {
     @Id
-    private String studentId;
-    
+    private String teacherId;
+
     @NotNull(message = "First name is required")
     private String firstName;
-    
+
     @NotNull(message = "Last name is required")
     private String lastName;
-    
+
     @Email(message = "Email should be valid")
-    private String studentEmail;
-    
+    private String teacherEmail;
+
     @NotNull(message = "Password is required")
     @Size(min = 8, message = "Password should be at least 8 characters")
-    private String studentPassword;
+    private String teacherPassword;
+
     private Boolean isAdmin;
 
-    public Student() {
-
+    public Teacher() {
     }
 
-    public Student(String studentId, String firstName, String lastName, String studentEmail, String studentPassword, Boolean isAdmin) {
-        this.studentId = studentId;
+    public Teacher(String teacherId, String firstName, String lastName, String teacherEmail, String teacherPassword, Boolean isAdmin) {
+        this.teacherId = teacherId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.studentEmail = studentEmail;
-        this.studentPassword = studentPassword;
+        this.teacherEmail = teacherEmail;
+        this.teacherPassword = teacherPassword;
         this.isAdmin = isAdmin;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public String getTeacherId() {
+        return teacherId;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
     }
 
     public String getFirstName() {
@@ -63,38 +63,38 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public String getStudentEmail() {
-        return studentEmail;
+    public String getTeacherEmail() {
+        return teacherEmail;
     }
 
-    public void setStudentEmail(String studentEmail) {
-        this.studentEmail = studentEmail;
+    public void setTeacherEmail(String teacherEmail) {
+        this.teacherEmail = teacherEmail;
     }
 
-    public String getStudentPassword() {
-        return studentPassword;
+    public String getTeacherPassword() {
+        return teacherPassword;
     }
 
-    public void setStudentPassword(String studentPassword) {
-        this.studentPassword = studentPassword;
+    public void setTeacherPassword(String teacherPassword) {
+        this.teacherPassword = teacherPassword;
     }
 
-    public Boolean getAdmin() {
+    public Boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(Boolean admin) {
-        isAdmin = admin;
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     @Override
     public String toString() {
-        return "Student{" +
-                "studentId='" + studentId + '\'' +
+        return "Teacher{" +
+                "teacherId='" + teacherId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", studentEmail='" + studentEmail + '\'' +
-                ", studentPassword='" + studentPassword + '\'' +
+                ", teacherEmail='" + teacherEmail + '\'' +
+                ", teacherPassword='" + teacherPassword + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';
     }

@@ -56,6 +56,15 @@ public class ClassroomController {
     } else
         return new ResponseEntity<>(classrooms, HttpStatus.OK);
     }  // Return list of classrooms with 200 OK
+    
+    @GetMapping("/getStudentClassrooms/{studentId}")
+    public ResponseEntity<List<Classroom>> getClassroomsByStudentId(@PathVariable String studentId) {
+    List<Classroom> classrooms = classroomService.findByStudentClassrooms(studentId);
+    if (classrooms.isEmpty()) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<>(classrooms, HttpStatus.OK);
+}
 }
 
     

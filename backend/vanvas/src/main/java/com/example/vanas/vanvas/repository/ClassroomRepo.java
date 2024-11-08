@@ -15,8 +15,8 @@ public interface ClassroomRepo extends MongoRepository<Classroom, String> {
 
     List<Classroom> findByTeacherId(Teacher teacherId);
 
-    @Query(value = "{ 'students.id' : ?0 }", fields = "{ '_id' : 1 }")
-    List<String> getStudentClassroomListID(String ID);
+    @Query(value = "{ 'students.studentId' : ?0 }", fields = "{ '_id' : 1 }")
+    List<Classroom> getStudentClassroomList(String studentId);
 
   
 

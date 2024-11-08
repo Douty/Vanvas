@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.vanas.vanvas.model.Assignment;
 import com.example.vanas.vanvas.model.Classroom;
+import com.example.vanas.vanvas.model.Student;
 import com.example.vanas.vanvas.model.classroomUtil.StudentGrade;
 import com.example.vanas.vanvas.repository.ClassroomRepo;
 @Service
@@ -21,8 +22,8 @@ public class ClassroomService {
     public List<Classroom> findByName(String name){
         return classroomRepo.findByName(name);
     }
-    public List<String> findByStudentClassrooms(String studentId) {
-        return classroomRepo.getStudentClassroomListID(studentId);
+    public List<Classroom> findByStudentClassrooms(String studentId) {
+        return classroomRepo.getStudentClassroomList(studentId);
     }
     public Assignment addAssignment(String classroomId, Assignment assignment) {
         Classroom classroom = classroomRepo.findById(classroomId)
@@ -31,6 +32,15 @@ public class ClassroomService {
         classroom.getAssignments().add(assignment);
         classroomRepo.save(classroom);  
         return assignment; 
+    }
+
+    public Student addStudent(String classroomId, Student student){
+        Classroom classroom = classroomRepo.findById(classroomId)
+                .orElseThrow(() -> new IllegalArgumentException("Classroom with id " + classroomId + " not found."));
+        
+        classroom.getStudents().add(student);
+        classroomRepo.save(classroom);
+        return student;
     }
 
     public double calulateStudentClassGrade(String studentId, String classroomId){

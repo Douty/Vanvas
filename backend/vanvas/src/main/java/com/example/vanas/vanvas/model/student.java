@@ -1,12 +1,12 @@
 package com.example.vanas.vanvas.model;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Document
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "Students")
 public class Student {
     
     @Id
@@ -26,9 +26,7 @@ public class Student {
     private String studentPassword;
     private Boolean isAdmin;
 
-    public Student() {
-
-    }
+    public Student() {}
 
     public Student(String studentId, String firstName, String lastName, String studentEmail, String studentPassword, Boolean isAdmin) {
         this.studentId = studentId;

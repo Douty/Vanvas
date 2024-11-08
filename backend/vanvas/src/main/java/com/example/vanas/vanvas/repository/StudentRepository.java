@@ -1,13 +1,16 @@
 package com.example.vanas.vanvas.repository;
 
-import com.example.vanas.vanvas.model.Student;
+import java.util.Optional;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.Optional;
+import com.example.vanas.vanvas.model.Student;
 
 public interface StudentRepository extends MongoRepository<Student, String> {
 
     Optional<Student> findByStudentEmail(String email);
 
     Optional<Student> findByStudentId(String studentId);
+
+    
 }

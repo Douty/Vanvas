@@ -53,8 +53,8 @@ public class Classroom {
     public List<Student> getStudents(){
         return students;
     }
-    public void setStudents(List<Student> students){
-        this.students = students;
+    public void addStudent(Student student){
+        students.add(student);
     }
     public List<Assignment> getAssignments() {
         return assignments;

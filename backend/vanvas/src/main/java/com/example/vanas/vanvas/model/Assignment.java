@@ -1,28 +1,32 @@
 package com.example.vanas.vanvas.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import com.example.vanas.vanvas.model.classroomUtil.*;
+
+import com.example.vanas.vanvas.model.classroomUtil.StudentGrade;
 
 
 public class Assignment {
     @Id
     public String id;
     public String name;
-    public Date time;
+    private LocalDate dueDate;
+    private double priority;
     public String description;
     public String type;
     public List<StudentGrade> studentgrade;
     
-    public Assignment(String id,String name,Date time,String description,String type){
+    public Assignment(String id,String name,LocalDate dueDate,String description,String type, double priority,List<StudentGrade> StudentGrade){
         this.id = id;
         this.name = name;
-        this.time = time;
+        this.dueDate = dueDate;
         this.description = description;
         this.type = type;
+        this.priority = priority;
+        this.studentgrade =  StudentGrade != null ?  StudentGrade : new ArrayList<>();
     }
 
     public Assignment() {}
@@ -31,13 +35,14 @@ public class Assignment {
     public String getId() {
         return id;
     }
+  
 
     public String getName() {
         return name;
     }
 
-    public Date getTime() {
-        return time;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
     public String getDescription() {
@@ -47,6 +52,9 @@ public class Assignment {
     public String getType() {
         return type;
     }
+    public double  getPriority(){
+        return priority;
+    } 
 
     // Setters
     public void setId(String id) {
@@ -57,8 +65,8 @@ public class Assignment {
         this.name = name;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setTime(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
     public void setDescription(String description) {
@@ -67,6 +75,9 @@ public class Assignment {
 
     public void setType(String type) {
         this.type = type;
+    }
+    public void setPriority(double priority){
+        this.priority = priority;
     }
 
     public List<StudentGrade> getStudentGrades() {
@@ -83,7 +94,7 @@ public class Assignment {
         return "Assignment{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", time=" + time +
+                ", time=" + dueDate+
                 ", description='" + description + '\'' +
                 ", type='" + type + '\'' +
                 ", studentGrades=" + studentgrade +

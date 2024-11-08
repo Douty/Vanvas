@@ -1,19 +1,20 @@
 package com.example.vanas.vanvas.service;
 
-import com.example.vanas.vanvas.model.Student;
-import com.example.vanas.vanvas.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.vanas.vanvas.model.Student;
+import com.example.vanas.vanvas.repository.StudentRepository;
+
 @Service
-public class StudentRegistrationService {
+public class StudentService {
 
     private final StudentRepository studentRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder  passwordEncoder;
 
     @Autowired
-    public StudentRegistrationService(StudentRepository studentRepository, BCryptPasswordEncoder passwordEncoder) {
+    public StudentService(StudentRepository studentRepository, PasswordEncoder  passwordEncoder) {
         this.studentRepository = studentRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -23,9 +24,9 @@ public class StudentRegistrationService {
             throw new IllegalArgumentException("Email already in use");
         }
 
-        String hashedPassword = passwordEncoder.encode(student.getStudentPassword());
+    String hashedPassword = passwordEncoder.encode(student.getStudentPassword());
         student.setStudentPassword(hashedPassword);
 
         return studentRepository.save(student);
-    }
+    } 
 }

@@ -48,3 +48,8 @@ REQUIRED PARAMETER: Name of the class
 #### Generate ToDo list 
 ```/api/assignment/todoList/{studentId}``` Generates the todo list of assignments based on priority 
 REQUIRED PARAMETER: Student ID
+
+
+#### Get student classrooms 
+```/getStudentClassrooms/{studentId}```  Returns all the classrooms the student is currently in 
+REQUIRED PARAMETER: Student ID 

@@ -11,6 +11,7 @@ public class StudentRegistrationService {
 
     private final StudentRepository studentRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final boolean enablePasswordEncoding = false; // Set false to bypass the enconding
 
     @Autowired
     public StudentRegistrationService(StudentRepository studentRepository, BCryptPasswordEncoder passwordEncoder) {
@@ -23,8 +24,13 @@ public class StudentRegistrationService {
             throw new IllegalArgumentException("Email already in use");
         }
 
-        String hashedPassword = passwordEncoder.encode(student.getStudentPassword());
-        student.setStudentPassword(hashedPassword);
+        if (enablePasswordEncoding) {
+            String hashedPassword = passwordEncoder.encode(student.getStudentPassword());
+            student.setStudentPassword(hashedPassword);
+        } else {
+
+            student.setStudentPassword(student.getStudentPassword());
+        }
 
         return studentRepository.save(student);
     }

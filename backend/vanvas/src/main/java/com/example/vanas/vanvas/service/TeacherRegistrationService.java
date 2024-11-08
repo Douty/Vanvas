@@ -11,6 +11,7 @@ public class TeacherRegistrationService {
 
     private final TeacherRepository teacherRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final boolean enablePasswordEncoding = false;  // Set false to bypass the enconding
 
     @Autowired
     public TeacherRegistrationService(TeacherRepository teacherRepository, BCryptPasswordEncoder passwordEncoder) {
@@ -23,8 +24,12 @@ public class TeacherRegistrationService {
             throw new IllegalArgumentException("Email already in use");
         }
 
-        String hashedPassword = passwordEncoder.encode(teacher.getTeacherPassword());
-        teacher.setTeacherPassword(hashedPassword);
+        if (enablePasswordEncoding) {
+            String hashedPassword = passwordEncoder.encode(teacher.getTeacherPassword());
+            teacher.setTeacherPassword(hashedPassword);
+        } else {
+            teacher.setTeacherPassword(teacher.getTeacherPassword());
+        }
 
         return teacherRepository.save(teacher);
     }

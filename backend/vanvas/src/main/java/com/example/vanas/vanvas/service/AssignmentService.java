@@ -12,21 +12,20 @@ import org.springframework.stereotype.Service;
 import com.example.vanas.vanvas.model.Assignment;
 import com.example.vanas.vanvas.repository.ClassroomRepo;
 
-
 @Service
 public class AssignmentService {
     @Autowired
     private ClassroomRepo classroomRepo;
-    
+
     public List<Assignment> getSortedAssignmentsForStudent(String studentId) {
-       
         return classroomRepo.findAssignmentsByStudentId(studentId).stream()
-                .sorted(Comparator.comparingDouble(this::calculateScore).reversed())  
+                .sorted(Comparator.comparingDouble(this::calculateScore).reversed())
                 .collect(Collectors.toList());
     }
+
     private double calculateScore(Assignment assignment) {
         long daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), assignment.getDueDate());
-        daysLeft = Math.max(daysLeft, 1);
+        daysLeft = Math.max(daysLeft, 1); // Avoid division by zero
 
         double urgencyScore = 1.0 / daysLeft;
         double priorityScore = assignment.getPriority();

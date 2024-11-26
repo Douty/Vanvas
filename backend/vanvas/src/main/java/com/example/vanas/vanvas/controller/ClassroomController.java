@@ -59,7 +59,7 @@ public class ClassroomController {
         return new ResponseEntity<>(classrooms, HttpStatus.OK);
     }
 
-    
+
     @PostMapping("/{classroomId}/addStudent")
     public ResponseEntity<String> addStudentToClassroom(@PathVariable String classroomId, @RequestBody Student student) {
         try {

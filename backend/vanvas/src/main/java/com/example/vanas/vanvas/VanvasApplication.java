@@ -17,5 +17,4 @@ public class VanvasApplication {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 }

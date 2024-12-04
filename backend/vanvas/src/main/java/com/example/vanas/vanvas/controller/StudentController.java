@@ -1,11 +1,14 @@
 package com.example.vanas.vanvas.controller;
 
+import com.example.vanas.vanvas.DTO.StudentLoginResponse;
 import com.example.vanas.vanvas.model.Student;
 import com.example.vanas.vanvas.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 
 @RestController
@@ -30,14 +33,22 @@ public class StudentController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginStudent(@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<StudentLoginResponse> loginStudent(@RequestParam String email, @RequestParam String password) {
         try {
             Student student = studentService.login(email, password);
-            return new ResponseEntity<>("Login successful for: " + student.getFirstName() + " " + student.getLastName(), HttpStatus.OK);
+            StudentLoginResponse response = new StudentLoginResponse(
+                    student.getStudentId(),
+                    student.getFirstName(),
+                    student.getLastName(),
+                    student.getStudentEmail()
+            );
+            return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(null);
         }
     }
+
 
 
     @GetMapping("/getIdByEmail")

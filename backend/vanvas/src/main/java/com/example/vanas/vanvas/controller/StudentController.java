@@ -29,6 +29,23 @@ public class StudentController {
     }
 
 
+    @PostMapping("/login")
+    public ResponseEntity<String> loginStudent(@RequestParam String email, @RequestParam String password) {
+        try {
+            Student student = studentService.login(email, password);
+            return new ResponseEntity<>("Login successful for: " + student.getFirstName() + " " + student.getLastName(), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+
+    @GetMapping("/test")
+    public String testEndpoint() {
+        return "StudentController is working!";
+    }
+
+
 
 
 }

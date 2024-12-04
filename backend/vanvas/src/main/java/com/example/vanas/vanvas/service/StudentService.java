@@ -24,4 +24,15 @@ public class StudentService {
             .filter(student -> passwordEncoder.matches(password, student.getStudentPassword()))
             .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
     }
+
+    public Student registerStudent(Student student) {
+        if (studentRepository.findByStudentEmail(student.getStudentEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already in use");
+        }
+
+        String hashedPassword = passwordEncoder.encode(student.getStudentPassword());
+        student.setStudentPassword(hashedPassword);
+
+        return studentRepository.save(student);
+    }
 }

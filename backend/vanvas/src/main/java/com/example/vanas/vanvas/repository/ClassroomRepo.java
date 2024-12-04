@@ -18,13 +18,10 @@ public interface ClassroomRepo extends MongoRepository<Classroom, String> {
     @Query(value = "{ 'students.studentId' : ?0 }", fields = "{ '_id' : 1 }")
     List<Classroom> getStudentClassroomList(String studentId);
 
-  
-
     @Query(value = "{ '_id' : ?0 }", fields = "{ 'assignments' : 1 }")
     Classroom findAssignmentsByClassroomId(String classroomId);
 
     @Query(value = "{ 'assignments.studentgrade.studentId': ?0 }", fields = "{ 'assignments' : 1 }")
     List<Assignment> findAssignmentsByStudentId(String studentId);
-    
-   
-} 
+
+}

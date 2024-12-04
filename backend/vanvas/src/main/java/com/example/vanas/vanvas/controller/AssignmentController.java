@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.vanas.vanvas.model.Assignment;
 import com.example.vanas.vanvas.service.AssignmentService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
 @RestController
 @RequestMapping("/api/assignment")
 public class AssignmentController {

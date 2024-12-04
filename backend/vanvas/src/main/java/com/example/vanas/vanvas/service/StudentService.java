@@ -35,4 +35,11 @@ public class StudentService {
 
         return studentRepository.save(student);
     }
+
+    public String getStudentIdByEmail(String email) {
+        return studentRepository.findByStudentEmail(email)
+                .map(Student::getStudentId)
+                .orElseThrow(() -> new IllegalArgumentException("Student with email not found"));
+    }
+
 }

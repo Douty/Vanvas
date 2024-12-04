@@ -40,6 +40,18 @@ public class StudentController {
     }
 
 
+    @GetMapping("/getIdByEmail")
+    public ResponseEntity<String> getStudentIdByEmail(@RequestParam String email) {
+        try {
+            String studentId = studentService.getStudentIdByEmail(email);
+            return new ResponseEntity<>(studentId, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
     @GetMapping("/test")
     public String testEndpoint() {
         return "StudentController is working!";

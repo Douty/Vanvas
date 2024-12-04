@@ -37,4 +37,15 @@ public class TeacherController {
         }
     }
 
+    @GetMapping("/getIdByEmail")
+    public ResponseEntity<String> getTeacherIdByEmail(@RequestParam String email) {
+        try {
+            String teacherId = teacherService.getTeacherIdByEmail(email);
+            return new ResponseEntity<>(teacherId, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+ 
+
 }

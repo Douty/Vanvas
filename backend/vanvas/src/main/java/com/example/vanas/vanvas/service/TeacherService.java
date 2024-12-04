@@ -36,4 +36,11 @@ public class TeacherService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
     }
 
+    public String getTeacherIdByEmail(String email) {
+        return teacherRepository.findByTeacherEmail(email)
+                .map(Teacher::getTeacherId)
+                .orElseThrow(() -> new IllegalArgumentException("Teacher with email not found"));
+    }
+
+
 }

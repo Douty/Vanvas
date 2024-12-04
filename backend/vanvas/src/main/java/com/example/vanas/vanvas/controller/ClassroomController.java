@@ -12,7 +12,7 @@ import com.example.vanas.vanvas.model.Classroom;
 import com.example.vanas.vanvas.model.Student;
 import com.example.vanas.vanvas.service.ClassroomService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
 @RestController
 @RequestMapping("/api/classrooms")
 public class ClassroomController {

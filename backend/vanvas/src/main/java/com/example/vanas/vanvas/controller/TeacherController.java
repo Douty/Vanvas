@@ -26,4 +26,15 @@ public class TeacherController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginTeacher(@RequestParam String email, @RequestParam String password) {
+        try {
+            Teacher teacher = teacherService.login(email, password);
+            return new ResponseEntity<>("Login successful for: " + teacher.getFirstName() + " " + teacher.getLastName(), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
 }

@@ -28,5 +28,12 @@ public class TeacherService {
         teacher.setTeacherPassword(hashedPassword);
 
         return teacherRepository.save(teacher);
-    } 
+    }
+
+    public Teacher login(String email, String password) {
+        return teacherRepository.findByTeacherEmail(email)
+                .filter(teacher -> passwordEncoder.matches(password, teacher.getTeacherPassword()))
+                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
+    }
+
 }

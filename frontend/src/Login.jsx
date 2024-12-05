@@ -6,6 +6,7 @@ import { useAuth } from './context/AuthContext';
 
 
 const Login = () => {
+    const navigate = useNavigate();
     const auth = useAuth();
     const [error, setError] = useState('');
     const [formData, setFormData] = useState({

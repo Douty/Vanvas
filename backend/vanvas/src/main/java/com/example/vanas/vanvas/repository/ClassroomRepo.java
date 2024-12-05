@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import com.example.vanas.vanvas.model.Assignment;
 import com.example.vanas.vanvas.model.Classroom;
 import com.example.vanas.vanvas.model.Teacher;
 
@@ -21,7 +20,8 @@ public interface ClassroomRepo extends MongoRepository<Classroom, String> {
     @Query(value = "{ '_id' : ?0 }", fields = "{ 'assignments' : 1 }")
     Classroom findAssignmentsByClassroomId(String classroomId);
 
-    @Query(value = "{ 'assignments.studentgrade.studentId': ?0 }", fields = "{ 'assignments' : 1 }")
-    List<Assignment> findAssignmentsByStudentId(String studentId);
+    @Query(value = "{ 'students._id': ?0 }", fields = "{ 'assignments': 1 }")
+    List<Classroom> findAssignmentsByStudentId(String studentId);
+
 
 }

@@ -16,11 +16,7 @@ const TeacherClassCreation = () => {
     const newClass = {
       id: classId,
       name: className,
-      teacher: {
-        id: teacherId,
-        name: teacherName,
-        email: teacherEmail,
-      },
+      teacherId: teacherId,
       assignments: [],
       students: [],
     };
@@ -89,26 +85,6 @@ const TeacherClassCreation = () => {
                   id="teacherId"
                   value={teacherId}
                   onChange={(e) => setTeacherId(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="teacherName">Teacher Name:</label>
-                <input
-                  type="text"
-                  id="teacherName"
-                  value={teacherName}
-                  onChange={(e) => setTeacherName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="teacherEmail">Teacher Email:</label>
-                <input
-                  type="email"
-                  id="teacherEmail"
-                  value={teacherEmail}
-                  onChange={(e) => setTeacherEmail(e.target.value)}
                   required
                 />
               </div>

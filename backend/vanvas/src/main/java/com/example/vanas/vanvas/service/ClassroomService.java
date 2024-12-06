@@ -29,6 +29,10 @@ public class ClassroomService {
         return classroomRepo.getStudentClassroomList(studentId);
     }
 
+    public List<Classroom> findByTeacherClassrooms(String teacherId) {
+        return classroomRepo.getTeacherClassroomList(teacherId);
+    }
+
     public Assignment addAssignment(String classroomId, Assignment assignment) {
         Classroom classroom = classroomRepo.findById(classroomId)
                 .orElseThrow(() -> new IllegalArgumentException("Classroom with id " + classroomId + " not found."));

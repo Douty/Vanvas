@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect, useContext} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import logo from './assets/Vanvas.png';
 import { useAuth } from './context/AuthContext';
 
-/* comment for a change */
+
 const Login = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const navigate = useNavigate();
+    const auth = useAuth();
+    const [error, setError] = useState('');
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const handleClick = () => {
+        navigate('/register');
     };
 
     const handleChange = (e) => {
@@ -22,9 +31,6 @@ const Login = () => {
         console.log(formData);
         if(formData.email !== "" && formData.password !== ""){
             auth.loginAction(formData);
-            if(auth.user === null){
-                auth.loginAction(formData);
-            }
             return;
         }
         alert("please provide a valid input");
@@ -52,16 +58,40 @@ const Login = () => {
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="username">Username:</label>
-                    <input type="text" id="username" name="username" required />
+                    <label htmlFor="studentEmail">Email:</label>
+                    <input
+                        type="email"
+                        id="studentEmail"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Enter your email"
+                        required
+                    />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" id="password" name="password" required />
+                    <label htmlFor="studentPassword">Password:</label>
+                    <input
+                        type="password"
+                        id="studentPassword"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        placeholder="Enter your password"
+                        required
+                    />
                 </div>
+                {error && <p className="error-message">{error}</p>}
+                {/*success && <p className="success-message">{success}</p>*/}
                 <button type="submit">Login</button>
             </form>
-            <p className="register-link">Don't have an account? <a href="#">Register here</a></p>
+            { <p className="register-link">
+                Don't have an account?
+                <button onClick={handleClick} className="toggle-button">
+                    Register here
+                </button>
+            </p>}
+            
         </div>
     );
 };

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import './Dash.css';
 import profilePicture from './assets/pfp.png';
 import { useAuth } from './context/AuthContext';
 
-/* comment for a change */
 //should expand amount of colors for more classes, maybe make them random?
 const colors = ['#EF6C6E', '#6C7DEF', '#6CEF88','#EFCC6C', '#D0EF6C', '#6CD7EF'];
 
@@ -15,36 +15,73 @@ const Dash = () => {
   const [todo, setTodo] = useState([]);
 
   const fetchCourses = async () => {
-
-    try{
-      const response = await fetch(`http://localhost:8080/api/classrooms/getStudentClassrooms/${auth.user.userData.id}`, {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json"
+    if(auth.user.role === "Student") {
+      try{
+        const response = await fetch(`http://localhost:8080/api/classrooms/getStudentClassrooms/${auth.user.userData.id}`, {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        if(!response.ok){
+          throw new Error('fetch did not work !');
         }
-      });
-      if(!response.ok){
-        throw new Error('fetch did not work !');
+  
+        const data = await response.json();
+        var i = 0;
+        const coursesList = data.map(course =>
+          <li className='course-margin' key={course.id + Math.floor(Math.random() * 100)}>
+            <Link to={`/course/${course.name}`}>
+              <div className='course'>
+                <div className='course-logo' style={{background: colors[i++]}}></div>
+                <p>{course.name}</p>
+              </div>
+            </Link>            
+          </li>
+        )
+        setCourses(coursesList)
       }
-
-      const data = await response.json();
-      var i = 0;
-      const coursesList = data.map(course =>
-        <li className='course-margin' key={course.id}>
-          <div className='course'>
-            <div className='course-logo' style={{background: colors[i++]}}></div>
-            <p>{course.name}</p>
-          </div>
-        </li>
-      )
-      setCourses(coursesList)
+      catch(error){
+        console.error('Error: ', error);
+      }
     }
-    catch(error){
-      console.error('Error: ', error);
+    else if(auth.user.role === "Teacher") {
+      try{
+        const response = await fetch(`http://localhost:8080/api/classrooms/getTeacherClassrooms/${auth.user.userData.id}`, {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        if(!response.ok){
+          throw new Error('fetch did not work !');
+        }
+  
+        const data = await response.json();
+        var i = 0;
+        const coursesList = data.map(course =>
+          <li className='course-margin' key={course.id + Math.floor(Math.random() * 100)}>
+            <Link to={`/course/${course.name}`}>
+              <div className='course'>
+                <div className='course-logo' style={{background: colors[i++]}}></div>
+                <p>{course.name}</p>
+              </div>
+            </Link>    
+          </li>
+        )
+        setCourses(coursesList)
+      }
+      catch(error){
+        console.error('Error: ', error);
+      }
     }
+    
   }
 
   const fetchAssignments = async () => {
+    if(auth.user.role === "Teacher"){
+      return;
+    }
     try{
       const response = await fetch(`http://localhost:8080/api/assignment/todoList/${auth.user.userData.id}`, {
         method: 'GET',
@@ -59,10 +96,12 @@ const Dash = () => {
       const data = await response.json();
       var i = 0;
       const todoList = data.map(assignment =>
-        <li className='assignment-margin' key={assignment.id}>
+        <li className='assignment-margin' key={assignment.id + Math.floor(Math.random() * 100)}>
           <div className='assignment'>
-            <p className='assignment-name'>{assignment.name}</p>
-            <p>Due: {assignment.dueDate}</p>
+            <p className='assignment-name'>{assignment.name} - {assignment.description}</p>
+            <p className='assignment-grade'>-/100</p>
+            <p className='assignment-type'>Type: {assignment.type}</p>
+            <p className='assignment-due-date'>Due: {assignment.dueDate}</p>
           </div>
         </li>
       )
@@ -74,21 +113,40 @@ const Dash = () => {
   }
 
   useEffect(() => {
-    if(auth.user.role === "Student"){
-      fetchCourses();
-      fetchAssignments();
-    }
+    fetchCourses();
+    fetchAssignments();
   }, []);
   
   
   
   return (
-    <div className="dashboard-container">
-      <Sidebar />
-      <div className="dashboard-header">
-        <h1>Dashboard</h1>
-        <div className="line"></div>
+    <div>
+      <div className="dashboard">
+
+        <div className="dashboard-container">
+          <div className='header'>
+            <h1>Dashboard</h1>
+            <div className="line-dashboard"></div>
+          </div>
+
+          <div className='courses-container'>
+            <ul className='courses'>{courses}</ul>
+          </div>
+        </div>
+
+        {auth.user.role === "Student" &&
+        <div className='to-do-container'>
+          <div className='header'>
+            <h1>To-Do</h1>
+            <div className="line-to-do"></div>
+          </div>
+          <div className='to-do-list'>
+            <ul>{todo}</ul>
+          </div>
+        </div>}
+
       </div>
+    
     </div>
   );
 };

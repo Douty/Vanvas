@@ -132,7 +132,7 @@ const Sidebar = () => {
   useEffect(() => {
     fetchNavbar();
     fetchCourses();
-  }, []);
+  }, [isOpen]);
 
   return (
     <div className="sidebar">

@@ -9,7 +9,8 @@ const colors = ['#EF6C6E', '#6C7DEF', '#6CEF88','#EFCC6C', '#D0EF6C', '#6CD7EF']
 
 const Dash = () => {
   const auth = useAuth();
-  //console.log(auth.user.userData);
+  console.log(auth.user.userData);
+  console.log(auth.user.role);
   
   const [courses, setCourses] = useState(null);
   const [todo, setTodo] = useState([]);

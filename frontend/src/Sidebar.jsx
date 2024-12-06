@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import './Sidebar.css';
 import { BsFillFilePersonFill, BsClipboard2, BsBook, BsArrowBarLeft } from 'react-icons/bs';
 import logowhite from './assets/VanvasVanvasWhite.png';
@@ -11,7 +11,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 
 
-
+//comment for a change
 const Sidebar = () => {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -133,7 +133,7 @@ const Sidebar = () => {
             </button>
           </li>
         </ul>
-      </div>
+      </nav>
     </div>
   );
 };

@@ -145,6 +145,28 @@ const Dash = () => {
           </div>
         </div>}
 
+        {auth.user.role === "Teacher" &&
+          <div className='to-do-container'>
+            <div className='header'>
+              <h1 style={{textAlign: 'center', marginRight: '36px'}}>Course Management</h1>
+              <div className="line-to-do"></div>
+            </div>
+            <div className='to-do-list'>
+              <ul>
+                <li className='assignment-margin'>
+                  <Link to={`/dashboard/createClass`}>
+                    <div className='course-change-option'>
+                      <div className='assignment'>
+                        <p>Create Class</p>
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        }
+
       </div>
     
     </div>

@@ -1,38 +1,38 @@
 import React, { useState } from "react";
 import "./teacher-addstudent.css";
+import { Link, useParams } from 'react-router-dom';
 import VanvasLogo from "./assets/Vanvas.png";
-import TeacherSidebar from "./teacher-sidebar";
 
 const TeacherAddStudent = () => {
-  const [classId, setClassId] = useState("");
-  const [studentId, setStudentId] = useState("");
-  const [studentName, setStudentName] = useState("");
+  const { courseName, courseId } = useParams();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [studentEmail, setStudentEmail] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);  
+  
   const handleAddStudentSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
+    
     const newStudent = {
-      id: studentId,
-      name: studentName,
+      firstName: firstName,
+      lastName: lastName,
+      studentEmail: studentEmail,
     };
-
+    console.log(JSON.stringify(newStudent));
     try {
-      const response = await fetch(`/api/classrooms/${classId}/addStudent`, {
+      const response = await fetch(`http://localhost:8080/api/classrooms/${courseId}/addStudent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newStudent),
       });
-
+      console.log(response.ok);
       if (response.ok) {
-        setStatusMessage(`Student "${studentName}" added to classroom "${classId}".`);
-        setClassId("");
-        setStudentId("");
-        setStudentName("");
+        setStatusMessage(`Student "${firstName + " " + lastName}" added to classroom "${courseId}".`);
       } else {
         const error = await response.json();
         setStatusMessage(`Failed to add student: ${error.message || "Unknown error"}`);
@@ -46,7 +46,6 @@ const TeacherAddStudent = () => {
 
   return (
     <div className="teacher-addstudent-layout">
-      <TeacherSidebar />
       <div className="teacher-addstudent-main">
         <header className="teacher-addstudent-header">
           <h1>Teacher Add Student</h1>
@@ -58,32 +57,32 @@ const TeacherAddStudent = () => {
             <h2>Add a New Student</h2>
             <form onSubmit={handleAddStudentSubmit}>
               <div className="form-group">
-                <label htmlFor="classId">Classroom ID:</label>
+                <label htmlFor="firstName">First Name:</label>
                 <input
                   type="text"
-                  id="classId"
-                  value={classId}
-                  onChange={(e) => setClassId(e.target.value)}
+                  id="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="studentId">Student ID:</label>
+                <label htmlFor="lastName">Last Name:</label>
                 <input
                   type="text"
-                  id="studentId"
-                  value={studentId}
-                  onChange={(e) => setStudentId(e.target.value)}
+                  id="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   required
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="studentName">Student Name:</label>
+                <label htmlFor="studentEmail">Student Email:</label>
                 <input
                   type="text"
-                  id="studentName"
-                  value={studentName}
-                  onChange={(e) => setStudentName(e.target.value)}
+                  id="studentEmail"
+                  value={studentEmail}
+                  onChange={(e) => setStudentEmail(e.target.value)}
                   required
                 />
               </div>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Course.css';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 
 const Course = () => {
     const auth = useAuth();  
     
     const { courseName } = useParams();
+    const [courseId, setCourseId] = useState("");
     const [assignments, setAssignments] = useState(null);
 
     const fetchAssignments = async () => {
@@ -23,6 +24,7 @@ const Course = () => {
     
             const data = await response.json();
             var i = 0;
+            setCourseId(data[0]["id"]);
             const assignments = data[0]["assignments"].map(assignment =>
                 <li className='assignment-margin' key={assignment.id + Math.floor(Math.random() * 100)}>
                     <div className='assignment'>
@@ -100,25 +102,31 @@ const Course = () => {
                         <div>
                             <ul>
                                 <li className='assignment-margin'>
-                                    <div className='course-change-option'>
-                                        <div className='assignment'>
-                                            <p>Add Assignment</p>
+                                    <Link to={`/course/${courseName}/${courseId}/addAssignment`}>
+                                        <div className='course-change-option'>
+                                            <div className='assignment'>
+                                                <p>Add Assignment</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </li>
                                 <li className='assignment-margin'>
-                                    <div className='course-change-option'>
-                                        <div className='assignment'>
-                                            <p>Add Student</p>
+                                    <Link to={`/course/${courseName}/${courseId}/addStudent`}>
+                                        <div className='course-change-option'>
+                                            <div className='assignment'>
+                                                <p>Add Student</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </li>
                                 <li className='assignment-margin'>
-                                    <div className='course-change-option'>
-                                        <div className='assignment'>
-                                            <p>Remove Student</p>
+                                    <Link to={`/course/${courseName}/${courseId}/addAssignment`}>
+                                        <div className='course-change-option'>
+                                            <div className='assignment'>
+                                                <p>Remove Student</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </li>
                             </ul>
                         </div>

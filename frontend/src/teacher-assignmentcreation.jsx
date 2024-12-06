@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./teacher-assignmentcreation.css";
 import VanvasLogo from "./assets/Vanvas.png";
-import TeacherSidebar from "./teacher-sidebar";
+import { Link, useParams } from 'react-router-dom';
+
 
 const TeacherAssignmentCreation = () => {
-  const [classroomId, setClassroomId] = useState("");
+  const { courseName, courseId } = useParams();
   const [assignmentId, setAssignmentId] = useState("");
   const [assignmentName, setAssignmentName] = useState("");
   const [dueDate, setDueDate] = useState("");
@@ -21,15 +22,15 @@ const TeacherAssignmentCreation = () => {
     const newAssignment = {
       id: assignmentId,
       name: assignmentName,
-      dueDate,
+      dueDate: dueDate,
       priority: parseFloat(priority),
-      description,
-      type,
+      description: description,
+      type: type,
       studentgrade: [],
     };
-
+    console.log(JSON.stringify(newAssignment));
     try {
-      const response = await fetch(`/api/classrooms/${classroomId}/addAssignment`, {
+      const response = await fetch(`http://localhost:8080/api/classrooms/${courseId}/addAssignment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,20 +39,19 @@ const TeacherAssignmentCreation = () => {
       });
 
       if (response.ok) {
-        setStatusMessage(`Assignment "${assignmentName}" added to classroom "${classroomId}".`);
+        setStatusMessage(`Assignment "${assignmentName}" added to classroom "${courseId}".`);
         setAssignmentId("");
         setAssignmentName("");
         setDueDate("");
         setPriority("");
         setDescription("");
         setType("");
-        setClassroomId("");
       } else {
         const error = await response.json();
         setStatusMessage(`Failed to add assignment:${error.message||"Unknown error"}`);
       }
     } catch (error) {
-      setStatusMessage("Errorwhile adding the assignment.");
+      setStatusMessage("Error while adding the assignment.");
     } finally {
       setIsLoading(false);
     }
@@ -59,7 +59,6 @@ const TeacherAssignmentCreation = () => {
 
   return (
     <div className="teacher-assignment-layout">
-      <TeacherSidebar />
       <div className="teacher-assignment-main">
         <header className="teacher-assignment-header">
           <h1>Teacher Assignment Creation</h1>
@@ -70,16 +69,6 @@ const TeacherAssignmentCreation = () => {
           <section className="teacher-assignment-form">
             <h2>Create a New Assignment</h2>
             <form onSubmit={handleAssignmentSubmit}>
-              <div className="form-group">
-                <label htmlFor="classroomId">Classroom ID:</label>
-                <input
-                  type="text"
-                  id="classroomId"
-                  value={classroomId}
-                  onChange={(e) => setClassroomId(e.target.value)}
-                  required
-                />
-              </div>
               <div className="form-group">
                 <label htmlFor="assignmentId">Assignment ID:</label>
                 <input

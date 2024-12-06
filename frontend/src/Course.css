@@ -54,6 +54,7 @@
 
 .course-container{
     display: flex;
+    height: 855px;
 }
 
 .course-options{
@@ -75,10 +76,12 @@
     margin-top: 30px;
     margin-left: 20px;
     width: 680px;
+    overflow-y: auto;
 }
 
 .assignment-list h2{
     font-size: 2.5em;
     margin-right: 20px;
     text-align: center;
+    overflow-y: auto;
 }

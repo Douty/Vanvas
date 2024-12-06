@@ -9,7 +9,9 @@ import Dash from './Dash';
 import Profile from './Profile';
 import Course from './Course';
 import Layout from './layout/Layout';
-
+import TeacherClassCreation from './teacherclasscreation';
+import TeacherAddStudent from './teacher-addstudent';
+import TeacherAssignmentCreation from './teacher-assignmentcreation';
 
 const App = () => {
   return (
@@ -21,7 +23,11 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route element={<Layout />}> 
             <Route path="/dashboard" element={<Dash />} />
+            <Route path="/dashboard/createClass" element={<TeacherClassCreation />} />
             <Route path="/course/:courseName" element={<Course />} />
+            <Route path="/course/:courseName/:courseId/addStudent" element={<TeacherAddStudent />} />
+            <Route path="/course/:courseName/:courseId/removeStudent" element={<Course />} />
+            <Route path="/course/:courseName/:courseId/addAssignment" element={<TeacherAssignmentCreation />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./teacherclasscreation.css";
 import VanvasLogo from "./assets/Vanvas.png";
-import TeacherSidebar from "./teacher-sidebar";
 
 const TeacherClassCreation = () => {
   const [classId, setClassId] = useState("");
@@ -27,7 +26,7 @@ const TeacherClassCreation = () => {
     };
 
     try {
-      const response = await fetch("/api/classrooms/classSave", {
+      const response = await fetch("http://localhost:8080/api/classrooms/classSave", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,7 +52,6 @@ const TeacherClassCreation = () => {
 
   return (
     <div className="teacher-class-layout">
-      <TeacherSidebar />
       <div className="teacher-class-main">
         <header className="teacher-class-header">
           <h1>Teacher Class Creation</h1>

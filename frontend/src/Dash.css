@@ -73,6 +73,7 @@
 .to-do-container{
   height: 900px;
   width: 720px;
+  overflow-y: auto;
 }
 
 .assignment {

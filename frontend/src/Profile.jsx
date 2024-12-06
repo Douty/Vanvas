@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 import profilePicture from './assets/pfp.png';
 import { useAuth } from './context/AuthContext';
 
-
+/* comment for a change */
 const Profile = () => {
     const auth = useAuth();  
     return (

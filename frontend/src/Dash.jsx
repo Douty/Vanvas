@@ -4,6 +4,7 @@ import './Dash.css';
 import profilePicture from './assets/pfp.png';
 import { useAuth } from './context/AuthContext';
 
+/* comment for a change */
 //should expand amount of colors for more classes, maybe make them random?
 const colors = ['#EF6C6E', '#6C7DEF', '#6CEF88','#EFCC6C', '#D0EF6C', '#6CD7EF'];
 

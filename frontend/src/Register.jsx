@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Login.css';
 import logo from './assets/Vanvas.png';
 import { useNavigate } from 'react-router-dom';
-
+/* comment for a change */
 const Register = () => {
     const navigate = useNavigate();
 

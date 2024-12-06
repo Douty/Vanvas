@@ -30,6 +30,9 @@ const Login = () => {
         console.log(formData);
         if(formData.email !== "" && formData.password !== ""){
             auth.loginAction(formData);
+            if(auth.user === null){
+                auth.loginAction(formData);
+            }
             return;
         }
         alert("please provide a valid input");

@@ -74,8 +74,10 @@ const Dash = () => {
   }
 
   useEffect(() => {
-    fetchCourses();
-    fetchAssignments();
+    if(auth.user.role === "Student"){
+      fetchCourses();
+      fetchAssignments();
+    }
   }, []);
   
   

@@ -30,7 +30,31 @@ const AuthProvider = ({ children }) => {
             }
             throw new Error(res.message);
         } catch (err) {
-            console.error(err);
+            try{
+              const response = await fetch(`http://localhost:8080/login?email=${data.email}&password=${data.password}`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                      studentEmail: data.email,
+                      studentPassword: data.password,
+                  }),
+              });
+              const res = await response.json();
+              console.log(res);
+              if (res) {
+                  setUser({userData: res, role: "Teacher"});
+                  setToken(res.id);
+                  localStorage.setItem("site", res.id);
+                  navigate("/dashboard");
+                  return;
+              }
+              throw new Error(res.message);
+            }
+            catch (err2){
+              console.error(err);
+            }
         }
     };
 

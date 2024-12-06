@@ -1,4 +1,6 @@
+
 .sidebar {
+  z-index: 9999;
   width: 80px;
   background-color: #007bff;
   display: flex;
@@ -50,6 +52,11 @@
   color: #007bff;
 }
 
+.nav:hover .nav-courses{
+  border-color: transparent;
+  color: #007bff;
+}
+
 .nav-exit{
   width: 80px;
   background-color: transparent;
@@ -82,6 +89,20 @@
   color: #007bff;
 }
 
+#dropdown-button-drop-end{
+  width: 80px;
+}
+
+#dropdown-button-drop-end:hover{
+  border-color: transparent;
+  background-color: white;
+  color: #007bff;
+}
+
+#dropdown-button-drop-end::after {
+  display: none;
+}
+
 .nav-elements{
   display: flex;
   flex-direction: column;
@@ -92,6 +113,16 @@
   text-align: center;
 }
 
+.nav-courses{
+  padding-left: 13.1875px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: bottom;
+  font-size: 0.9em;
+  color: white;
+  text-align: center;
+}
 .sidebar nav ul {
   list-style-type: none;
   padding: 0;

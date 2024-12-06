@@ -1,5 +1,9 @@
 import React from 'react';
+<<<<<<< Updated upstream
 import { render, screen, fireEvent } from '@testing-library/react';
+=======
+import { render, screen, fireEvent} from '@testing-library/react';
+>>>>>>> Stashed changes
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import { useAuth } from '../src/context/AuthContext';

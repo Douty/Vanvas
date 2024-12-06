@@ -1,6 +1,7 @@
 package com.example.vanas.vanvas.controller;
 
 import com.example.vanas.vanvas.DTO.TeacherLoginResponse;
+import com.example.vanas.vanvas.model.Classroom;
 import com.example.vanas.vanvas.model.Teacher;
 import com.example.vanas.vanvas.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -47,8 +49,6 @@ public class TeacherController {
         }
     }
 
-
-
     @GetMapping("/getIdByEmail")
     public ResponseEntity<String> getTeacherIdByEmail(@RequestParam String email) {
         try {
@@ -59,5 +59,38 @@ public class TeacherController {
         }
     }
 
+    @GetMapping("/classes")
+    public ResponseEntity<?> getTeacherClasses(@RequestParam(required = false) String id,
+                                               @RequestParam(required = false) String email) {
+        try {
+            if (id == null && email == null) {
+                return ResponseEntity.badRequest()
+                        .body(Map.of("error", "Please provide either 'id' or 'email'"));
+            }
 
+            String teacherId;
+            Teacher teacher;
+            if (id != null) {
+                teacherId = id;
+                teacher = teacherService.getTeacherById(teacherId);
+            } else {
+                teacherId = teacherService.getTeacherIdByEmail(email);
+                teacher = teacherService.getTeacherById(teacherId);
+            }
+
+            List<Classroom> classrooms = teacherService.getClassesByTeacherId(teacherId);
+            return ResponseEntity.ok(Map.of(
+                    "id", teacher.getTeacherId(),
+                    "firstName", teacher.getFirstName(),
+                    "lastName", teacher.getLastName(),
+                    "email", teacher.getTeacherEmail(),
+                    "classes", classrooms
+            ));
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", e.getMessage()));
+        }
+    }
 }
+

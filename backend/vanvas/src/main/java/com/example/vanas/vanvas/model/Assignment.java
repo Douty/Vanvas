@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.example.vanas.vanvas.model.classroomUtil.StudentGrade;
 
@@ -14,7 +13,6 @@ public class Assignment {
     @Id
     public String id;
     public String name;
-    @Field("dueDate")
     private LocalDate dueDate;
     private double priority;
     public String description;
